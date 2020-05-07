@@ -45,9 +45,11 @@ module Graphiti
       def payload_for(sideload, relationship_payload)
         type = relationship_payload[:meta][:jsonapi_type].to_sym
 
-        if sideload.resource.type != type && sideload.polymorphic_parent?
-          sideload = sideload.child_for_type(type)
-        end
+        # Comment temporally to solve github issue#56
+        # While this is commented there may be problems with polymorpmhic relationships
+        #if sideload.resource.type != type && sideload.polymorphic_parent?
+        #  sideload = sideload.child_for_type(type)
+        #end
         relationship_payload[:meta][:method] ||= :update
 
         {
